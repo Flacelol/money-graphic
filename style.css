@@ -61,7 +61,7 @@ label input{margin-top:6px;font-weight:400}
 .legend .d.out{margin-left:10px}
 .legend .l{width:14px;height:3px;background:var(--bal);display:inline-block;margin-left:10px;border-radius:2px}
 .list-panel{max-height:calc(100vh - 220px);min-height:320px;display:flex;flex-direction:column}
-ul{list-style:none;margin:0 -20px;padding:0;overflow:auto;flex:1;border-top:1px solid var(--line)}
+ul{list-style:none;margin:0 -20px;padding:0;overflow-y:auto;overflow-x:hidden;flex:1;border-top:1px solid var(--line)}
 li{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--line);transition:background .12s}
 li:hover{background:var(--soft)}
 li .dot{width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;font-size:13px}

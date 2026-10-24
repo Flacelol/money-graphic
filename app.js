@@ -71,7 +71,7 @@ function renderList(data) {
     const li = document.createElement('li');
     li.dataset.bucket = bucket(x.date).k;
     const c = x.type === 'in' ? 'var(--in)' : 'var(--out)';
-    li.innerHTML = `<span class="dot ${x.type}">${x.type === 'in' ? '↓' : '↑'}</span>
+    li.innerHTML = `<span class="dot ${x.type}">${x.type === 'in' ? '↑' : '↓'}</span>
       <span class="meta"><b></b><small>${fmtDate(x.date)}</small></span>
       <span class="amt" style="color:${c}">${x.type === 'in' ? '+' : '−'}${money(x.amount)}</span>
       <button class="del" title="Удалить" type="button">×</button>`;
