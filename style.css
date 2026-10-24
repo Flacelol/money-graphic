@@ -71,8 +71,9 @@ li .meta{flex:1;min-width:0}
 li .meta b{display:block;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 li .meta small{color:var(--muted);font-size:12px}
 li .amt{font-weight:600;white-space:nowrap}
-li .del{border:0;background:none;color:var(--faint);font-size:16px;line-height:1;padding:4px 7px;border-radius:6px;opacity:0;transition:all .12s}
-li:hover .del,li .del:focus-visible{opacity:1}
+li .ed,li .del{border:0;background:none;color:var(--faint);font-size:16px;line-height:1;padding:4px 7px;border-radius:6px;opacity:0;transition:all .12s}
+li:hover .ed,li:hover .del,li .ed:focus-visible,li .del:focus-visible{opacity:1}
+li .ed:hover{color:var(--accent);background:var(--accent-soft)}
 li .del:hover{color:var(--out);background:var(--out-soft)}
 li.hl{background:var(--accent-soft)}
 .empty{color:var(--muted);text-align:center;padding:40px 0}
@@ -92,5 +93,8 @@ li.hl{background:var(--accent-soft)}
   .cards{grid-template-columns:1fr}
   .top{padding:12px 16px}
   main{padding:16px 16px 40px}
-  li .del{opacity:1}
+  li .ed,li .del{opacity:1}
 }
+.actions{display:flex;gap:8px}
+.actions [hidden]{display:none}
+.actions .primary{flex:1}

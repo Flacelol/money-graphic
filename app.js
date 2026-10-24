@@ -74,9 +74,15 @@ function renderList(data) {
     li.innerHTML = `<span class="dot ${x.type}">${x.type === 'in' ? '↑' : '↓'}</span>
       <span class="meta"><b></b><small>${fmtDate(x.date)}</small></span>
       <span class="amt" style="color:${c}">${x.type === 'in' ? '+' : '−'}${money(x.amount)}</span>
+      <button class="ed" title="Изменить" type="button">✎</button>
       <button class="del" title="Удалить" type="button">×</button>`;
     li.querySelector('b').textContent = x.description;
-    li.querySelector('.del').onclick = () => { tx = tx.filter(t => t.id !== x.id); save(); render(); };
+    li.querySelector('.ed').onclick = () => startEdit(x);
+    li.querySelector('.del').onclick = () => {
+      tx = tx.filter(t => t.id !== x.id); save();
+      if (editingId === x.id) stopEdit();
+      render();
+    };
     ul.appendChild(li);
   }
 }
@@ -189,12 +195,43 @@ seg('groupSeg', 'g', v => { group = v; render(); });
 seg('filterSeg', 'f', v => { filter = v; render(); });
 seg('typeSeg', 't', v => { type = v; });
 
+let editingId = null;
+function setType(t) {
+  type = t;
+  $('typeSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+}
+function startEdit(x) {
+  editingId = x.id;
+  setType(x.type);
+  $('date')._flatpickr ? $('date')._flatpickr.setDate(x.date) : ($('date').value = x.date);
+  $('amount').value = x.amount;
+  $('desc').value = x.description;
+  $('formTitle').textContent = 'Изменить транзакцию';
+  $('submitBtn').textContent = 'Сохранить';
+  $('cancelEdit').hidden = false;
+  $('form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  $('desc').focus();
+}
+function stopEdit() {
+  editingId = null;
+  $('formTitle').textContent = 'Новая транзакция';
+  $('submitBtn').textContent = 'Добавить';
+  $('cancelEdit').hidden = true;
+  $('amount').value = ''; $('desc').value = '';
+}
+$('cancelEdit').onclick = stopEdit;
+
 $('form').addEventListener('submit', e => {
   e.preventDefault();
   const amount = parseFloat($('amount').value);
   const description = $('desc').value.trim();
   if (!(amount > 0) || !description) return;
-  tx.push({ id: Date.now(), date: $('date').value, type, amount, description });
+  if (editingId) {
+    Object.assign(tx.find(t => t.id === editingId), { date: $('date').value, type, amount, description });
+    stopEdit();
+  } else {
+    tx.push({ id: Date.now(), date: $('date').value, type, amount, description });
+  }
   save();
   $('amount').value = ''; $('desc').value = '';
   $('desc').focus();

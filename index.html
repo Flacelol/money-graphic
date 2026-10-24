@@ -45,7 +45,7 @@
       </div>
 
       <form class="panel" id="form">
-        <h2>Новая транзакция</h2>
+        <h2 id="formTitle">Новая транзакция</h2>
         <div class="seg type" id="typeSeg">
           <button type="button" data-t="in" class="on">Доход</button>
           <button type="button" data-t="out">Расход</button>
@@ -55,7 +55,7 @@
           <label>Сумма <input type="number" id="amount" min="0.01" step="0.01" placeholder="0" required></label>
         </div>
         <label>Описание <input type="text" id="desc" maxlength="80" placeholder="Например: зарплата, продукты" required></label>
-        <button class="primary" type="submit">Добавить</button>
+        <div class="actions"><button class="primary" id="submitBtn" type="submit">Добавить</button><button class="ghost" id="cancelEdit" type="button" hidden>Отмена</button></div>
       </form>
     </div>
 
