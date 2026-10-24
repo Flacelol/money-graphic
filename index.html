@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мои финансы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&subset=cyrillic&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><i><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l4-4 3 3 5-6"/></svg></i><h1>Мои финансы</h1></div>
+  <div class="range">
+    <label>С <input type="text" id="from" placeholder="дд.мм.гггг"></label>
+    <label>По <input type="text" id="to" placeholder="дд.мм.гггг"></label>
+    <button class="ghost" id="resetRange" type="button">Всё время</button>
+  </div>
+</header>
+
+<main>
+  <section class="cards">
+    <div class="card"><span>Доходы</span><b id="sumIn" class="in">0</b></div>
+    <div class="card"><span>Расходы</span><b id="sumOut" class="out">0</b></div>
+    <div class="card"><span>Баланс на карте</span><b id="sumBal">0</b><button class="ghost edit" id="setBal" type="button">Изменить</button>
+      <form id="balForm" class="balform" hidden><input id="balInput" inputmode="decimal" placeholder="Сумма на карте"><button class="primary" type="submit">OK</button><button class="ghost" id="balCancel" type="button">×</button></form></div>
+  </section>
+
+  <section class="grid">
+    <div class="left">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>График</h2>
+          <div class="seg" id="groupSeg">
+            <button data-g="day" type="button">Дни</button>
+            <button data-g="week" type="button">Недели</button>
+            <button data-g="month" type="button" class="on">Месяцы</button>
+          </div>
+        </div>
+        <div id="chart" class="chart"></div>
+        <div class="legend">
+          <i class="d in"></i>Доход <i class="d out"></i>Расход <i class="l"></i>Баланс
+        </div>
+      </div>
+
+      <form class="panel" id="form">
+        <h2>Новая транзакция</h2>
+        <div class="seg type" id="typeSeg">
+          <button type="button" data-t="in" class="on">Доход</button>
+          <button type="button" data-t="out">Расход</button>
+        </div>
+        <div class="row">
+          <label>Дата <input type="text" id="date" required></label>
+          <label>Сумма <input type="number" id="amount" min="0.01" step="0.01" placeholder="0" required></label>
+        </div>
+        <label>Описание <input type="text" id="desc" maxlength="80" placeholder="Например: зарплата, продукты" required></label>
+        <button class="primary" type="submit">Добавить</button>
+      </form>
+    </div>
+
+    <div class="panel list-panel">
+      <div class="panel-head">
+        <h2>Транзакции</h2>
+        <div class="seg" id="filterSeg">
+          <button data-f="all" type="button" class="on">Все</button>
+          <button data-f="in" type="button">Доходы</button>
+          <button data-f="out" type="button">Расходы</button>
+        </div>
+      </div>
+      <ul id="list"></ul>
+      <p id="empty" class="empty" hidden>Пока нет транзакций</p>
+    </div>
+  </section>
+</main>
+<div id="tip" class="tip" hidden></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/l10n/ru.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
